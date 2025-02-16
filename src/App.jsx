@@ -4,16 +4,18 @@ import Home from './components/Home'
 import Navbar from './components/Navbar'
 import LoginPage from './components/LoginPage'
 import RegisterPage from './components/RegisterPage'
+import Cart from './components/Cart'
 
 const App = () => {
   return (
     <>
       <div className='d-flex flex-column min-vh-100'>
         <Navbar />
-        {/* <Home /> */}
         <main className='flex-fill'>
+          {/* <Home /> */}
+          <Cart />
           {/* <RegisterPage /> */}
-          <LoginPage />
+          {/* <LoginPage /> */}
         </main>
         <Footer />
       </div>

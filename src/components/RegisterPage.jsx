@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import { Toaster, toast } from 'sonner'
+import './RegisterPage.css'
 
 const RegisterPage = () => {
   const [users, setUsers] = useState({
     email: '',
     password: '',
-    confirmPassword: '',
-    formType: 'register'
+    confirmPassword: ''
 
   })
 
@@ -41,7 +41,7 @@ const RegisterPage = () => {
       <div className='card mx-auto shadow-sm bg-dark text-light' style={{ width: '100%', maxWidth: '400px' }}>
         <div className='card-body'>
           <h2 className='card-title text-center mb-4'>Registrate</h2>
-          <Toaster position='top-center' richColors expand />
+          <Toaster position='top-center' richColors expand className='toast-center' />
           <form onSubmit={handleSubmitRegister}>
             <div className='mb-3'>
               <label htmlFor='email' className='form-label'>Email</label>

@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { Toaster, toast } from 'sonner'
+import './LoginPage.css'
 
 const LoginPage = () => {
   const [users, setUsers] = useState({
     email: '',
-    password: '',
-    formType: 'login'
+    password: ''
+
   })
 
   const handleChangeLogin = async (e) => {
@@ -35,7 +36,7 @@ const LoginPage = () => {
       <div className='card mx-auto shadow-sm bg-dark text-light' style={{ width: '100%', maxWidth: '400px' }}>
         <div className='card-body'>
           <h2 className='card-title text-center mb-4'>Login</h2>
-          <Toaster position='top-center' richColors expand />
+          <Toaster position='top-center' richColors expand className='toast-center' />
           <form onSubmit={handleSubmitLogin}>
             <div className='mb-3'>
               <label htmlFor='email' className='form-label'>Email</label>

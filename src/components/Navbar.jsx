@@ -23,7 +23,6 @@ const Navbar = () => {
                 <i className='fa fa-pizza-slice' /> Home
               </button>
             </li>
-
             {/* Botones de Profile, Logout, Login y Register con un solo operador ternario */}
             {token ? (
               <>
@@ -56,7 +55,6 @@ const Navbar = () => {
                 </li>
               </>
             )}
-
             {/* Botón que muestra el total de la compra */}
             <li className='nav-item me-3'>
               <button className='btn btn-link nav-link text-white border border-primary'>
