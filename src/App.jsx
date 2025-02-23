@@ -5,6 +5,7 @@ import Navbar from './components/Navbar'
 import LoginPage from './components/LoginPage'
 import RegisterPage from './components/RegisterPage'
 import Cart from './components/Cart'
+import Pizza from './components/Pizza'
 
 const App = () => {
   return (
@@ -13,9 +14,10 @@ const App = () => {
         <Navbar />
         <main className='flex-fill'>
           {/* <Home /> */}
-          <Cart />
+          {/* <Cart /> */}
           {/* <RegisterPage /> */}
           {/* <LoginPage /> */}
+          <Pizza />
         </main>
         <Footer />
       </div>

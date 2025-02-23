@@ -2,15 +2,42 @@ import CardPizza from './CardPizza'
 import Header from './Header'
 import './Home.css'
 import { pizzas } from '../data/pizzas'
+import { useEffect, useState } from 'react'
 
 const Home = () => {
+  const [productos, setProductos] = useState([])
+
+  const URL = 'http://localhost:5000/api/pizzas'
+
+  const getApi = async () => {
+    try {
+      const res = await fetch(URL)
+      const data = await res.json()
+      setProductos(data)
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+
+  useEffect(() => {
+    getApi()
+  }, [])
+
+  console.log(productos)
+
   return (
 
     <div className='CardContainer my-4'>
-      <div className='row row-cols-1 row-cols-md-3 g-4'>
-        {pizzas.map(pizza => (
-          <div className='col' key={pizza.id}>
-            <CardPizza pizza={pizza} />
+      <div className='row row-cols-1 row-cols-md-4 justify-content-center g-3'>
+        {productos.map((producto) => (
+          <div key={producto.id} className='col-md-4'>
+            <CardPizza
+              price={producto.price}
+              desc={producto.desc}
+              img={producto.img}
+              name={producto.name}
+              ingredients={producto.ingredients}
+            />
           </div>
         ))}
       </div>
@@ -20,3 +47,4 @@ const Home = () => {
 }
 
 export default Home
+
