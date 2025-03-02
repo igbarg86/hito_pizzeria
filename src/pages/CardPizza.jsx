@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 const CardPizza = ({ name, img, price, ingredients, desc }) => {
   const formattedPrice = price.toLocaleString('es-CL', { style: 'currency', currency: 'CLP' })
 
@@ -15,7 +17,7 @@ const CardPizza = ({ name, img, price, ingredients, desc }) => {
         <p className='card-text text-justify mb-3 text-muted'>{desc} </p>
         <div className='d-flex justify-content-between align-items-center mt-auto border-top pt-3 border-bottom pb-3 '>
           <h5 className='card-text'>{formattedPrice}</h5>
-          <button className='btn btn-primary'> Añadir al carro</button>
+          <Link to='/pizza/p001' className='btn btn-primary'> Añadir al carro</Link>
         </div>
       </div>
     </div>
