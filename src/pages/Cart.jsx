@@ -1,56 +1,20 @@
-import { useState } from 'react'
-import { pizzaCart } from '../data/pizzas'
+import { useContext } from 'react'
+import cartContext from '../context/CartContext'
 
 const Cart = () => {
-  const [cart, setCart] = useState(pizzaCart)
-
-  const calcularTotal = () => {
-    let total = 0
-    cart.forEach((item) => {
-      total += item.price * item.count
-    })
-    return total
-  }
-
-  const aumentarCantidad = (id) => {
-    const nuevoCart = cart.map((item) => {
-      if (item.id === id) {
-        return {
-          ...item,
-          count: item.count + 1
-        }
-      }
-      return item
-    })
-    setCart(nuevoCart)
-  }
-
-  const disminuirCantidad = (id) => {
-    const nuevoCart = cart.map((item) => {
-      if (item.id === id && item.count > 0) {
-        return {
-          ...item,
-          count: item.count - 1
-        }
-      }
-      return item
-    })
-      .filter(item => item.count > 0)
-
-    setCart(nuevoCart)
-  }
+  const { cart, aumentarCantidad, disminuirCantidad, eliminarProducto, calcularTotal } = useContext(cartContext)
 
   const formatPrice = (price) => {
     return price.toLocaleString('es-CL', { style: 'currency', currency: 'CLP' })
   }
 
   return (
-    <div className='container mt-5'>
+    <div className='container d-flex flex-column min-vh-100 mt-5'>
       <h2 className='text-center mb-4 text-uppercase font-weight-bold'>Detalles del pedido:</h2>
 
       {cart.map((item) => (
         <div className='card mb-3 shadow-sm rounded' key={item.id} style={{ border: 'none' }}>
-          <div className='row g-0  d-flex align-items-center'>
+          <div className='row g-0 d-flex align-items-center'>
             <div className='col-md-2'>
               <img
                 src={item.img}
@@ -80,6 +44,12 @@ const Cart = () => {
                     >
                       +
                     </button>
+                    <button
+                      className='btn btn-outline-primary btn-sm me-5'
+                      onClick={() => eliminarProducto(item.id)}
+                    >
+                      Eliminar
+                    </button>
                   </div>
                 </div>
               </div>
@@ -89,10 +59,8 @@ const Cart = () => {
       ))}
 
       <div className='text-end mt-4 p-3 rounded bg-light'>
-        <h3 className='text-primary font-weight-bold'>Total:{formatPrice(calcularTotal())} </h3>
-        <button className='btn btn-primary btn-lg mt-3'>
-          Pagar
-        </button>
+        <h3 className='text-primary font-weight-bold'>Total: {formatPrice(calcularTotal())}</h3>
+        <button className='btn btn-primary btn-lg mt-3'>Pagar</button>
       </div>
     </div>
   )

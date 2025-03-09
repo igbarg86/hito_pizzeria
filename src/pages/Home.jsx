@@ -1,7 +1,5 @@
 import CardPizza from './CardPizza'
-import Header from './Header'
 import './Home.css'
-import { pizzas } from '../data/pizzas'
 import { useEffect, useState } from 'react'
 
 const Home = () => {
@@ -27,11 +25,12 @@ const Home = () => {
 
   return (
 
-    <div className='CardContainer my-4'>
+    <div className='CardContainer'>
       <div className='row row-cols-1 row-cols-md-4 justify-content-center g-3'>
         {productos.map((producto) => (
           <div key={producto.id} className='col-md-4'>
             <CardPizza
+              id={producto.id}
               price={producto.price}
               desc={producto.desc}
               img={producto.img}
@@ -47,4 +46,3 @@ const Home = () => {
 }
 
 export default Home
-

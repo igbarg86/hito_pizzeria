@@ -9,14 +9,18 @@ import Pizza from './pages/Pizza'
 import Profile from './components/Profile'
 import NotFound from './components/NotFound'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { CartProvider } from './context/CartContext'
+import Header from './pages/Header'
 
 const App = () => {
   return (
-    <>
-      <BrowserRouter>
-        <div className='d-flex flex-column min-vh-100'>
-          <Navbar />
-          <main className='flex-fill'>
+
+    <BrowserRouter>
+      <div className='d-flex flex-column min-vh-300'>
+        <main className='flex-fill'>
+          <CartProvider>
+            <Navbar />
+            <Header />
             <Routes>
               <Route path='/' element={<Home />} />
               <Route path='/cart' element={<Cart />} />
@@ -26,11 +30,12 @@ const App = () => {
               <Route path='/profile' element={<Profile />} />
               <Route path='*' element={<NotFound />} />
             </Routes>
-          </main>
+          </CartProvider>
           <Footer />
-        </div>
-      </BrowserRouter>
-    </>
+        </main>
+      </div>
+    </BrowserRouter>
+
   )
 }
 
