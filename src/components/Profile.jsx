@@ -1,7 +1,19 @@
+import { useContext } from 'react'
+import { UserContext } from '../context/UserContext'
+import { useNavigate } from 'react-router-dom'
+
 const Profile = () => {
-  const email = 'Usuario@ejemplo.com'
+  const { token, logout } = useContext(UserContext)
+  const navigate = useNavigate()
+
+  if (!token) {
+    navigate('/login')
+    return null
+  }
+
   const handleLogout = () => {
-    console.log('Cerrar sesión')
+    logout()
+    navigate('/login')
   }
 
   return (
@@ -11,7 +23,7 @@ const Profile = () => {
           <h2 className='card-title text-center mb-4' style={{ borderBottom: '2px solid white', paddingBottom: '10px' }}>
             Perfil de Usuario
           </h2>
-          <p className='card-text'><strong>Email:</strong> {email}</p>
+          <p className='card-text'><strong>Email:</strong>tester@gmail.com</p>
           <button className='btn btn-primary mx-auto d-block' onClick={handleLogout}>
             Cerrar sesión
           </button>

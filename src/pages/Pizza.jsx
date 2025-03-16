@@ -1,10 +1,15 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
+import { useParams } from 'react-router-dom'
+import cartContext from '../context/CartContext'
 import './Pizza.css'
 
 const Pizza = () => {
+  const { id } = useParams()
   const [productos, setProductos] = useState([])
 
-  const URL = 'http://localhost:5000/api/pizzas/p001'
+  const { agregarAlCarrito } = useContext(cartContext)
+
+  const URL = `http://localhost:5000/api/pizzas/${id}`
 
   const getApi = async () => {
     try {
@@ -18,7 +23,7 @@ const Pizza = () => {
 
   useEffect(() => {
     getApi()
-  }, [])
+  }, [id])
 
   console.log(productos)
 
@@ -48,7 +53,7 @@ const Pizza = () => {
 
               <div className='pizza-price-container'>
                 <p className='pizza-price fs-3'>${producto.price}</p>
-                <button className='btn btn-primary pizza-btn'>Añadir</button>
+                <button onClick={() => agregarAlCarrito(producto)} className='btn btn-primary pizza-btn'>Añadir</button>
               </div>
             </div>
           </div>

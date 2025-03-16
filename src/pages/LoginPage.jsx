@@ -1,5 +1,7 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { Toaster, toast } from 'sonner'
+import { useNavigate } from 'react-router-dom'
+import { UserContext } from '../context/UserContext'
 import './LoginPage.css'
 
 const LoginPage = () => {
@@ -8,6 +10,13 @@ const LoginPage = () => {
     password: ''
 
   })
+
+  const { login, token } = useContext(UserContext)
+  const navigate = useNavigate()
+
+  if (token) {
+    navigate('/')
+  }
 
   const handleChangeLogin = async (e) => {
     setUsers({ ...users, [e.target.name]: e.target.value })
@@ -27,8 +36,16 @@ const LoginPage = () => {
       return
     }
 
-    toast.success('Has iniciado sesión correctamente')
-    setUsers({ email: '', password: '' })
+    // Usamos la función login del contexto para iniciar sesión
+    const loginSuccessful = login({ email, password })
+
+    if (loginSuccessful) {
+      toast.success('Has iniciado sesión correctamente')
+      navigate('/') // Redirigir al home después de un inicio de sesión exitoso
+      setUsers({ email: '', password: '' }) // Limpiar el formulario
+    } else {
+      toast.error('Credenciales incorrectas')
+    }
   }
 
   return (

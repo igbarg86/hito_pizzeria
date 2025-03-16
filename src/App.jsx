@@ -8,11 +8,14 @@ import Cart from './pages/Cart'
 import Pizza from './pages/Pizza'
 import Profile from './components/Profile'
 import NotFound from './components/NotFound'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { CartProvider } from './context/CartContext'
 import Header from './pages/Header'
+import { UserContext } from './context/UserContext'
+import { useContext } from 'react'
 
 const App = () => {
+  const { token } = useContext(UserContext)
   return (
 
     <BrowserRouter>
@@ -24,10 +27,10 @@ const App = () => {
             <Routes>
               <Route path='/' element={<Home />} />
               <Route path='/cart' element={<Cart />} />
-              <Route path='/register' element={<RegisterPage />} />
-              <Route path='/login' element={<LoginPage />} />
-              <Route path='/pizza/p001' element={<Pizza />} />
-              <Route path='/profile' element={<Profile />} />
+              <Route path='/register' element={token ? <Navigate to='/' /> : <RegisterPage />} />
+              <Route path='/login' element={token ? <Navigate to='/' /> : <LoginPage />} />
+              <Route path='/pizza/:id' element={<Pizza />} />
+              <Route path='/profile' element={token ? <Profile /> : <Navigate to='/login' />} />
               <Route path='*' element={<NotFound />} />
             </Routes>
           </CartProvider>

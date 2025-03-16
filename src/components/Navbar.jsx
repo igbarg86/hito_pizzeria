@@ -1,12 +1,24 @@
-import { Link } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { useContext } from 'react'
 import cartContext from '../context/CartContext'
+import './Navbar.css'
+import { UserContext } from '../context/UserContext'
 
 const Navbar = () => {
   const { calcularTotal } = useContext(cartContext)
   const total = calcularTotal()
 
-  const token = true // true esta logueado y false no está logueado
+  const { token, logout } = useContext(UserContext)
+  const navigate = useNavigate()
+
+  // FUNCION PARA MANEJAR CIERRE DE SESION
+
+  const handleLogout = () => {
+    logout()
+    navigate('/')
+  }
+
+  const validateRoot = ({ isActive }) => isActive ? 'menu active' : 'menu'
 
   return (
     <nav className='navbar navbar-expand-lg navbar-dark bg-dark sticky-top'>
@@ -18,9 +30,9 @@ const Navbar = () => {
         <div className='collapse navbar-collapse' id='navbarNav'>
           <ul className='navbar-nav ms-auto'>
             <li className='nav-item me-3'>
-              <Link to='/' className='btn btn-link nav-link text-white border border-white'>
+              <NavLink to='/' className={({ isActive }) => `${validateRoot({ isActive })} btn border border-opacity-50`}>
                 <i className='fa fa-pizza-slice' /> Home
-              </Link>
+              </NavLink>
             </li>
 
             {token
@@ -28,15 +40,15 @@ const Navbar = () => {
                 <>
 
                   <li className='nav-item me-3'>
-                    <Link to='/profile' className='btn btn-link nav-link text-white border border-white'>
+                    <NavLink to='/profile' className={({ isActive }) => `${validateRoot({ isActive })} btn  border border-opacity-50`}>
                       <i className='fa fa-user' /> Profile
-                    </Link>
+                    </NavLink>
                   </li>
 
                   <li className='nav-item me-3'>
-                    <Link to='/logout' className='btn btn-link nav-link text-white border border-white'>
+                    <NavLink to='/logout' className={({ isActive }) => `${validateRoot({ isActive })} btn  border border-opacity-50`} onClick={handleLogout}>
                       <i className='fa fa-sign-out-alt' /> Logout
-                    </Link>
+                    </NavLink>
                   </li>
                 </>
                 )
@@ -44,22 +56,22 @@ const Navbar = () => {
                 <>
 
                   <li className='nav-item me-3'>
-                    <Link to='/login' className='btn btn-link nav-link text-white border border-white'>
+                    <NavLink to='/login' className='btn btn-link nav-link  border border-white'>
                       <i className='fa fa-unlock' /> Login
-                    </Link>
+                    </NavLink>
                   </li>
                   <li className='nav-item me-3'>
-                    <Link to='/register' className='btn btn-link nav-link text-white border border-white'>
+                    <NavLink to='/register' className='btn btn-link nav-link  border border-white'>
                       <i className='fa fa-lock' /> Register
-                    </Link>
+                    </NavLink>
                   </li>
                 </>
                 )}
 
             <li className='nav-item me-3'>
-              <Link to='/cart' className='btn btn-link nav-link text-white border border-primary'>
+              <NavLink to='/cart' className={({ isActive }) => `${validateRoot({ isActive })} btn border border-primary`}>
                 <i className='fa fa-shopping-cart' /> Total: ${total.toLocaleString()}
-              </Link>
+              </NavLink>
             </li>
           </ul>
         </div>

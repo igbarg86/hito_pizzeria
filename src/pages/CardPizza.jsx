@@ -26,7 +26,7 @@ const CardPizza = ({ id, name, img, price, ingredients, desc }) => {
         <div className='d-flex justify-content-between align-items-center mt-auto border-top pt-3 border-bottom pb-3 '>
           <h5 className='card-text'>{formattedPrice}</h5>
           <div>
-            <Link to='/pizza/p001' className='btn btn-primary me-2'>Ver Más</Link>
+            <Link to={`/pizza/${id}`} className='btn btn-primary me-2'>Ver Más</Link>
             <button className='btn btn-primary' onClick={handleAddToCart}>Añadir</button>
           </div>
         </div>
