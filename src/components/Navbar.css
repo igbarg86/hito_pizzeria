@@ -1,0 +1,9 @@
+.navbar .menu {
+    text-decoration: none;
+    color: inherit;
+    color: #808080;
+}
+
+.navbar .menu.active {
+    color: rgb(255, 255, 255);
+}
